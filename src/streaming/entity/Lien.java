@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -43,6 +45,14 @@ public class Lien implements Serializable {
     @Column(nullable = false, unique = true)
     private String url;
     
+    @ManyToOne
+    @JoinColumn(name="film_id")    // On va mapper une clé étrangère en bdd // Tout en majuscules en bdd et pas d'espaces donc on utilise le _
+    private Film film; // Lien vers Film : ManyToOne
+    
+    @ManyToOne
+    @JoinColumn(name="episode_id")
+    private Episode episode;
+    
     @Enumerated(EnumType.STRING) // Sinon ça va se mapper vers du Integer dans ma bdd
     @Column(length = 16)
     private Version version; // de mon enum
@@ -51,6 +61,15 @@ public class Lien implements Serializable {
     @Column(length = 16)
     private Qualite qualite;
 
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    
     public Version getVersion() {
         return version;
     }

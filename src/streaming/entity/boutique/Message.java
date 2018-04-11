@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package streaming.entity;
+package streaming.entity.boutique;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Formation
  */
 @Entity
-public class Genre implements Serializable {
+public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToMany(mappedBy = "genre")
-    private List<Film> films = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "client_emetteur_id")
+    private Client clientEmetteur;
     
-    @OneToMany(mappedBy = "genre")
-    private List<Serie> series = new ArrayList<>();
-    
+    @ManyToOne
+    @JoinColumn(name = "client_recepteur_id")
+    private Client clientRecepteur;
 
     public Long getId() {
         return id;
@@ -51,10 +51,10 @@ public class Genre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genre)) {
+        if (!(object instanceof Message)) {
             return false;
         }
-        Genre other = (Genre) object;
+        Message other = (Message) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -63,7 +63,7 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "streaming.entity.Genre[ id=" + id + " ]";
+        return "streaming.entity.boutique.Message[ id=" + id + " ]";
     }
     
 }

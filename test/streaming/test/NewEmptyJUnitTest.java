@@ -22,6 +22,7 @@ public class NewEmptyJUnitTest {
         
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
 
+        /*
         em.getTransaction().begin();
         Film film = new Film();
         film.setTitre("Taxi 2");
@@ -29,5 +30,6 @@ public class NewEmptyJUnitTest {
         em.persist(film);
         
         em.getTransaction().commit();
+        */
     }
 }

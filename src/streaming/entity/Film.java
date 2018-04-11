@@ -6,12 +6,19 @@
 package streaming.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -28,6 +35,26 @@ public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @ManyToMany
+    @JoinTable(name = "film_acteur")
+    private List<Acteur> acteurs = new ArrayList();
+    
+    @ManyToMany
+    @JoinTable(name = "film_realisateur")
+    private List<Realisateur> realisateurs = new ArrayList();
+    
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+    
+    @ManyToOne
+    @JoinColumn(name = "pays_id")
+    private Pays pays;
+    
+    @OneToMany(mappedBy = "film") // Fait référence au : private Film film; qui se trouve dans Lien.java // le "mappedBy" se met du côté du OneToMany
+    private List<Lien> liens = new ArrayList<>(); // Toujours List à gauche et ArrayList à droite (à retenir comme une recette)
+    
+    
     // mes variables ici (avec getter and setter)
     
     @Column(nullable = false, length = 32, unique = true)
@@ -39,6 +66,8 @@ public class Film implements Serializable {
     
     @Column(nullable = false)
     private int anneeProd;
+    
+    
     
     
     /*

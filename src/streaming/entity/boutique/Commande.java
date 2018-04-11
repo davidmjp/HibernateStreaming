@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package streaming.entity;
+package streaming.entity.boutique;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,26 +12,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Formation
  */
 @Entity
-public class Genre implements Serializable {
+public class Commande implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToMany(mappedBy = "genre")
-    private List<Film> films = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "commande_produit") // du côté propriétaire (au choix)
+    private List<Produit> produits = new ArrayList<>();
     
-    @OneToMany(mappedBy = "genre")
-    private List<Serie> series = new ArrayList<>();
-    
+            
+            
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Long getId() {
         return id;
@@ -51,10 +57,10 @@ public class Genre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genre)) {
+        if (!(object instanceof Commande)) {
             return false;
         }
-        Genre other = (Genre) object;
+        Commande other = (Commande) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -63,7 +69,7 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "streaming.entity.Genre[ id=" + id + " ]";
+        return "streaming.entity.boutique.Commande[ id=" + id + " ]";
     }
     
 }

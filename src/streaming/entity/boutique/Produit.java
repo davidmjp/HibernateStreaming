@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package streaming.entity;
+package streaming.entity.boutique;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -19,20 +20,18 @@ import javax.persistence.OneToMany;
  * @author Formation
  */
 @Entity
-public class Genre implements Serializable {
+public class Produit implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToMany(mappedBy = "genre")
-    private List<Film> films = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "genre")
-    private List<Serie> series = new ArrayList<>();
+    @ManyToMany(mappedBy = "produits")
+    private List<Commande> commandes = new ArrayList<>();
     
 
+    
     public Long getId() {
         return id;
     }
@@ -51,10 +50,10 @@ public class Genre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genre)) {
+        if (!(object instanceof Produit)) {
             return false;
         }
-        Genre other = (Genre) object;
+        Produit other = (Produit) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -63,7 +62,7 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "streaming.entity.Genre[ id=" + id + " ]";
+        return "streaming.entity.boutique.Produit[ id=" + id + " ]";
     }
     
 }

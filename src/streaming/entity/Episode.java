@@ -6,11 +6,16 @@
 package streaming.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,6 +30,13 @@ public class Episode implements Serializable {
     private Long id;
     
     private String titre;
+    
+    @ManyToOne
+    @JoinColumn(name = "saison_id")
+    private Saison saison;
+    
+    @OneToMany(mappedBy = "episode")
+    private List<Lien> liens = new ArrayList<>();
     
     @Column(nullable = false)
     private int numEpisode;

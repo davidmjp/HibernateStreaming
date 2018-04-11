@@ -6,11 +6,18 @@
 package streaming.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,11 +31,31 @@ public class Serie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @ManyToMany
+    @JoinTable(name = "serie_acteur")
+    private List<Acteur> acteurs = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(name = "serie_realisateur")
+    private List<Realisateur> realisateurs = new ArrayList<>();
+    
     @Column(nullable = false, length = 32, unique = true)
     private String titre;
     
     @Column(length = 4000)
     private String synopsis;
+    
+    @OneToMany(mappedBy = "serie") // Fait référence au : private Serie serie; qui se trouve dans Saison.java
+    private List<Saison> saisons = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "pays_id")
+    private Pays pays;
+    
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+    
 
     public Long getId() {
         return id;
