@@ -6,8 +6,6 @@
 package streaming.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +17,14 @@ import javax.persistence.ManyToMany;
  * @author Formation
  */
 @Entity
-public class Acteur implements Serializable {
+public class Personne implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    
+    @ManyToMany
     
 
     public Long getId() {
@@ -47,10 +45,10 @@ public class Acteur implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Acteur)) {
+        if (!(object instanceof Personne)) {
             return false;
         }
-        Acteur other = (Acteur) object;
+        Personne other = (Personne) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -59,7 +57,7 @@ public class Acteur implements Serializable {
 
     @Override
     public String toString() {
-        return "streaming.entity.Acteur[ id=" + id + " ]";
+        return "streaming.entity.Personne[ id=" + id + " ]";
     }
     
 }

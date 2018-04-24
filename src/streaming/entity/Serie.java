@@ -31,13 +31,7 @@ public class Serie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToMany
-    @JoinTable(name = "serie_acteur")
-    private List<Acteur> acteurs = new ArrayList<>();
     
-    @ManyToMany
-    @JoinTable(name = "serie_realisateur")
-    private List<Realisateur> realisateurs = new ArrayList<>();
     
     @Column(nullable = false, length = 32, unique = true)
     private String titre;

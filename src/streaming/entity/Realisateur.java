@@ -26,11 +26,7 @@ public class Realisateur implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToMany(mappedBy = "realisateurs")
-    private List<Film> films = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "realisateurs")
-    private List<Serie> series = new ArrayList<>();
+   
     
     
     public Long getId() {

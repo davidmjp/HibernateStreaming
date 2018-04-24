@@ -35,13 +35,7 @@ public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToMany
-    @JoinTable(name = "film_acteur")
-    private List<Acteur> acteurs = new ArrayList();
     
-    @ManyToMany
-    @JoinTable(name = "film_realisateur")
-    private List<Realisateur> realisateurs = new ArrayList();
     
     @ManyToOne
     @JoinColumn(name = "genre_id")
